@@ -9,7 +9,6 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Setting up the Jinja2 environment
 env = Environment(
     loader=FileSystemLoader(searchpath="./"),
     autoescape=select_autoescape(['j2'])
@@ -56,9 +55,7 @@ def main(args):
             temperature=args.temperature,
             max_tokens=args.max_tokens,
         )
-        # parse the output
         print("Output: ", chat_completion.choices[0].message.content)
-        # get the usage information
         print("Usage: ", chat_completion.usage)
     except Exception as e:
         print(f"Error accessing OpenAI API: {e}")
