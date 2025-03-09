@@ -19,7 +19,7 @@ jobs:
           maxTokens='10000'
           temperature='0.6'
           pathToAiCodereviewScript=ai-codereview/ai-codereview.py
-          changedFiles=$(git show --pretty='format:' --name-only | grep .py")
+          changedFiles=$(git show --pretty='format:' --name-only | grep .py)
           virtualenv -p python3 ${venvDirLoc}
           set +x
           source ${venvDirLoc}/bin/activate
