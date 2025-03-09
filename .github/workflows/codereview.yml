@@ -28,6 +28,7 @@ jobs:
           source ${venvDirLoc}/bin/activate
           pip3 install -q openai jinja2
           set -x
+          ls -la
           for file in $(echo $changedFiles) ; do
               echo "Review file ${file}"
               export PROMPT_VAR=$(cat ${file})
