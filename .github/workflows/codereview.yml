@@ -1,0 +1,40 @@
+name: AI Codereview
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run ai-codereview script
+        env:
+          AI_API_TOKEN: ${{ secrets.AI_API_TOKEN }}
+          AI_API_MODEL: ${{ secrets.AI_API_MODEL }}
+          AI_API_BASE_URL: ${{ secrets.AI_API_BASE_URL }}
+        run: |
+          #!/bin/bash -e
+          maxTokens='10000'
+          temperature='0.6'
+          pathToAiCodereviewScript=ai-codereview/ai-codereview.py
+          changedFiles=$(git show --pretty='format:' --name-only | grep .py")
+          virtualenv -p python3 ${venvDirLoc}
+          set +x
+          source ${venvDirLoc}/bin/activate
+          pip3 install -q openai jinja2
+          set -x
+          for file in $(changedFiles) ; then
+              echo "Review file ${file}"
+              export PROMPT_VAR=$(cat ${file})
+              python3 ${pathToAiCodereviewScript} \
+                --base-url "${AI_API_BASE_URL}" \
+                --model "${AI_API_MODEL}"\
+                --api-key "${AI_API_TOKEN}" \
+                --max-tokens "${maxTokens}" \
+                --temperature "${temperature}" \
+                --context "" \
+                --lang "${lang}" \
+                --template-file "${pathToJinjaTemplateFile}"
+          done
