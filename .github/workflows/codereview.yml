@@ -18,6 +18,7 @@ jobs:
           #!/bin/bash -e
           maxTokens='10000'
           temperature='0.6'
+          venvDirLoc='.venv'
           pathToAiCodereviewScript=ai-codereview/ai-codereview.py
           changedFiles=$(git show --pretty='format:' --name-only | grep .py)
           sudo apt install python3-virtualenv
