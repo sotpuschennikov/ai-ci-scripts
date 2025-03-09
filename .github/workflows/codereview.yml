@@ -27,7 +27,7 @@ jobs:
           source ${venvDirLoc}/bin/activate
           pip3 install -q openai jinja2
           set -x
-          for file in $(changedFiles) ; then
+          for file in $(changedFiles) ; do
               echo "Review file ${file}"
               export PROMPT_VAR=$(cat ${file})
               python3 ${pathToAiCodereviewScript} \
