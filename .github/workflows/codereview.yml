@@ -19,7 +19,8 @@ jobs:
           maxTokens='10000'
           temperature='0.6'
           venvDirLoc='.venv'
-          pathToAiCodereviewScript=ai-codereview/ai-codereview.py
+          pathToAiCodereviewScript='ai-codereview/ai-codereview.py'
+          pathToJinjaTemplateFile='ai-codereview/prompt_template.j2'
           changedFiles=$(git show --pretty='format:' --name-only | grep .py)
           sudo apt install python3-virtualenv
           python3 -m venv ${venvDirLoc}
@@ -27,7 +28,8 @@ jobs:
           source ${venvDirLoc}/bin/activate
           pip3 install -q openai jinja2
           set -x
-          for file in $(changedFiles) ; then
+          ls -la
+          for file in $(echo $changedFiles) ; do
               echo "Review file ${file}"
               export PROMPT_VAR=$(cat ${file})
               python3 ${pathToAiCodereviewScript} \
