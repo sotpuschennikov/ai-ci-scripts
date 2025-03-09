@@ -21,7 +21,7 @@ jobs:
           pathToAiCodereviewScript=ai-codereview/ai-codereview.py
           changedFiles=$(git show --pretty='format:' --name-only | grep .py)
           sudo apt install python3-virtualenv
-          virtualenv -p python3 ${venvDirLoc}
+          python3 -m venv ${venvDirLoc}
           set +x
           source ${venvDirLoc}/bin/activate
           pip3 install -q openai jinja2
