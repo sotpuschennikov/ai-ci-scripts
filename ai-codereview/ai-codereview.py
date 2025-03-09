@@ -56,9 +56,7 @@ def main(args):
             temperature=args.temperature,
             max_tokens=args.max_tokens,
         )
-        # parse the output
         print("Output: ", chat_completion.choices[0].message.content)
-        # get the usage information
         print("Usage: ", chat_completion.usage)
     except Exception as e:
         print(f"Error accessing OpenAI API: {e}")
