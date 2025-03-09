@@ -19,7 +19,8 @@ jobs:
           maxTokens='10000'
           temperature='0.6'
           venvDirLoc='.venv'
-          pathToAiCodereviewScript=ai-codereview/ai-codereview.py
+          pathToAiCodereviewScript='ai-codereview/ai-codereview.py'
+          pathToJinjaTemplateFile='ai-codereview/prompt_template.j2'
           changedFiles=$(git show --pretty='format:' --name-only | grep .py)
           sudo apt install python3-virtualenv
           virtualenv -p python3 ${venvDirLoc}
