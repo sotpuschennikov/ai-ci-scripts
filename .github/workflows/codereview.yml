@@ -36,8 +36,8 @@ jobs:
           pip3 install -q openai jinja2
           set -x
           for file in $(echo $changedFiles) ; do
-              echo "Review file ${file}"
-              export PROMPT_VAR=$(cat ${file})
+              echo "Review file ai-ci-scripts/${file}"
+              export PROMPT_VAR=$(cat "ai-ci-scripts/${file}")
               python3 ${PATH_TO_AI_CODEREVIEW_SCRIPT} \
                 --base-url "${AI_API_BASE_URL}" \
                 --model "${AI_API_MODEL}"\
