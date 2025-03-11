@@ -25,9 +25,10 @@ jobs:
           PATH_TO_JINJA_TEMPLATE_FILE: 'ai-ci-scripts/ai-codereview/prompt_template.j2'
         run: |
           #!/bin/bash -e
-          pathToAiCodereviewScript='ai-ci-scripts/ai-codereview/ai-codereview.py'
-          pathToJinjaTemplateFile='ai-ci-scripts/ai-codereview/prompt_template.j2'
+          ls -la
+          pushd 'ai-ci-scripts'
           changedFiles=$(git show --pretty='format:' --name-only | grep .py)
+          popd
           sudo apt install python3-virtualenv
           python3 -m venv ${VENV_DIR_LOC}
           set +x
@@ -35,8 +36,8 @@ jobs:
           pip3 install -q openai jinja2
           set -x
           for file in $(echo $changedFiles) ; do
-              echo "Review file ${file}"
-              export PROMPT_VAR=$(cat ${file})
+              echo "Review file ai-ci-scripts/${file}"
+              export PROMPT_VAR=$(cat "ai-ci-scripts/${file}")
               python3 ${PATH_TO_AI_CODEREVIEW_SCRIPT} \
                 --base-url "${AI_API_BASE_URL}" \
                 --model "${AI_API_MODEL}"\
