@@ -1,6 +1,7 @@
 
 import argparse
 import os
+import re
 import sys
 from openai import OpenAI
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -55,7 +56,7 @@ def main(args):
             temperature=args.temperature,
             max_tokens=args.max_tokens,
         )
-        print("Output: ", chat_completion.choices[0].message.content)
+        print("Output: ", re.sub(r'<think>.*?</think>', '', chat_completion.choices[0].message.content, flags=re.DOTALL))
         print("Usage: ", chat_completion.usage)
     except Exception as e:
         print(f"Error accessing OpenAI API: {e}")
