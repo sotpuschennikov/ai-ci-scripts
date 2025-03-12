@@ -10,7 +10,6 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Setting up the Jinja2 environment
 env = Environment(
     loader=FileSystemLoader(searchpath="./"),
     autoescape=select_autoescape(['j2'])
