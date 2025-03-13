@@ -57,6 +57,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "This is result of AI codereview!
-              ${{ steps.codereview.outputs.review_result }}"
+              body: "This is result of AI codereview ${{ steps.codereview.outputs.review_result }} !"
             })
