@@ -49,7 +49,7 @@ jobs:
                 --lang "${LANG}" \
                 --template-file "${PATH_TO_JINJA_TEMPLATE_FILE}"
           done
-          echo "review_result=$?" >> $GITHUB_OUTPUT
+          echo "review_result=$(cat ./output.txt)" >> $GITHUB_OUTPUT
       - uses: actions/github-script@v7
         with:
           script: |
@@ -57,5 +57,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "This is result of AI codereview ${{ steps.codereview.outputs.review_result }} !"
+              body: "${{ steps.codereview.outputs.review_result }} !"
             })
