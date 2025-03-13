@@ -61,7 +61,6 @@ def main(args):
         f.write(re.sub(r'<think>.*?</think>', '', chat_completion.choices[0].message.content, flags=re.DOTALL))
         f.close()
         #f = open("./output.txt", "r")
-        #print(f.read())
         #f.close()
         print("Usage: ", chat_completion.usage)
     except Exception as e:
