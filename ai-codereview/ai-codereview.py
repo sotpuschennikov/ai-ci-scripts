@@ -56,7 +56,12 @@ def main(args):
             temperature=args.temperature,
             max_tokens=args.max_tokens,
         )
-        print("Output: ", re.sub(r'<think>.*?</think>', '', chat_completion.choices[0].message.content, flags=re.DOTALL))
+        #print("Output: ", re.sub(r'<think>.*?</think>', '', chat_completion.choices[0].message.content, flags=re.DOTALL))
+        f = open("./output.txt", "a")
+        f.write(re.sub(r'<think>.*?</think>', '', chat_completion.choices[0].message.content, flags=re.DOTALL))
+        f.close()
+        f = open("./output.txt", "r")
+        print(f.read())
         #print("Usage: ", chat_completion.usage)
     except Exception as e:
         print(f"Error accessing OpenAI API: {e}")
