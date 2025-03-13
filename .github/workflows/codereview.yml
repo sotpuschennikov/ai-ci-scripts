@@ -13,6 +13,7 @@ jobs:
           repository: sotpuschennikov/ai-ci-scripts
           path: ai-ci-scripts
       - name: Run ai-codereview script
+        id: codereview
         env:
           AI_API_TOKEN: ${{ secrets.AI_API_TOKEN }}
           AI_API_MODEL: ${{ secrets.AI_API_MODEL }}
@@ -48,6 +49,7 @@ jobs:
                 --lang "${LANG}" \
                 --template-file "${PATH_TO_JINJA_TEMPLATE_FILE}"
           done
+          echo "review_result=$?" >> $GITHUB_OUTPUT
       - uses: actions/github-script@v7
         with:
           script: |
@@ -55,5 +57,6 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'This is result of AI codereview!'
+              body: "This is result of AI codereview!
+              ${{ steps.codereview.outputs.review_result }}"
             })
