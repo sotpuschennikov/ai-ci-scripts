@@ -56,12 +56,12 @@ def main(args):
             temperature=args.temperature,
             max_tokens=args.max_tokens,
         )
-        #print("Output: ", re.sub(r'<think>.*?</think>', '', chat_completion.choices[0].message.content, flags=re.DOTALL))
+        print("Output: ", re.sub(r'<think>.*?</think>', '', chat_completion.choices[0].message.content, flags=re.DOTALL))
         f = open("./output.txt", "a")
         f.write(re.sub(r'<think>.*?</think>', '', chat_completion.choices[0].message.content, flags=re.DOTALL))
         f.close()
-        f = open("./output.txt", "r")
-        print(f.read())
+        f = open("./message.txt", "a")
+        f.write(re.findall(r'<message>(.*?)</message>', chat_completion.choices[0].message.content)[0])
         f.close()
         print("Usage: ", chat_completion.usage)
     except Exception as e:
