@@ -63,7 +63,7 @@ def main(args):
         f = open("./output.txt", "r")
         print(f.read())
         f.close()
-        print("Usage: ", chat_completion.usage)
+        #print("Usage: ", chat_completion.usage)
     except Exception as e:
         print(f"Error accessing OpenAI API: {e}")
         sys.exit(1)
