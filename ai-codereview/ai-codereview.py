@@ -61,6 +61,7 @@ def main(args):
         f.write(re.sub(r'<think>.*?</think>', '', chat_completion.choices[0].message.content, flags=re.DOTALL))
         f.close()
         message = re.findall(r'<message>(.*?)</message>', chat_completion.choices[0].message.content, flags=re.DOTALL)
+        print(message)
         f = open("./message.txt", "a")
         f.write(message[0])
         f.close()
