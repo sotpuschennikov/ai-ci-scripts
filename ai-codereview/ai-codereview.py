@@ -61,7 +61,7 @@ def main(args):
         f.write(re.sub(r'<think>.*?</think>', '', chat_completion.choices[0].message.content, flags=re.DOTALL))
         f.close()
         f = open("./message.txt", "a")
-        f.write(re.findall(r'<message>(.*?)</message>', chat_completion.choices[0].message.content)[0])
+        f.write(re.findall(r'<message>(.*?)</message>', chat_completion.choices[0].message.content))
         f.close()
         print("Usage: ", chat_completion.usage)
     except Exception as e:
