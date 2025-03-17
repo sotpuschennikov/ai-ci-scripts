@@ -57,18 +57,18 @@ def main(args):
             max_tokens=args.max_tokens,
         )
         output = re.sub(r'<think>.*?</think>', '', chat_completion.choices[0].message.content, flags=re.DOTALL)
-        logger.info(f"Output: {output}")
+        logger.info('Output: %s', output)
         f = open("./output.txt", "a")
         f.write(re.sub(r'<think>.*?</think>', '', chat_completion.choices[0].message.content, flags=re.DOTALL))
         f.close()
         message = re.findall(r'<message>(.*?)</message>', chat_completion.choices[0].message.content, flags=re.DOTALL)
-        logger.info(f"Brief: {message}")
+        logger.info('Brief: %s', message)
         f = open("./message.txt", "a")
         f.write(message[0])
         f.close()
         #print("Usage: ", chat_completion.usage)
     except Exception as e:
-        logger.info(f"Error accessing OpenAI API: {e}")
+        logger.info('Error accessing OpenAI API: %s', e)
         sys.exit(1)
 
 
