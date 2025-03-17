@@ -34,7 +34,7 @@ def load_prompt_template(args):
         template = env.get_template(args.template_file)
         return template
     except Exception as e:
-        print(f"Error loading template: {e}")
+        logger.error(f"Error loading template: {e}")
         sys.exit(1)
 
 
@@ -56,18 +56,18 @@ def main(args):
             temperature=args.temperature,
             max_tokens=args.max_tokens,
         )
-        print("Output: ", re.sub(r'<think>.*?</think>', '', chat_completion.choices[0].message.content, flags=re.DOTALL))
+        logger.info("Output: ", re.sub(r'<think>.*?</think>', '', chat_completion.choices[0].message.content, flags=re.DOTALL))
         f = open("./output.txt", "a")
         f.write(re.sub(r'<think>.*?</think>', '', chat_completion.choices[0].message.content, flags=re.DOTALL))
         f.close()
         message = re.findall(r'<message>(.*?)</message>', chat_completion.choices[0].message.content, flags=re.DOTALL)
-        print(message)
+        logger.info(message)
         f = open("./message.txt", "a")
         f.write(message[0])
         f.close()
         #print("Usage: ", chat_completion.usage)
     except Exception as e:
-        print(f"Error accessing OpenAI API: {e}")
+        logger.info(f"Error accessing OpenAI API: {e}")
         sys.exit(1)
 
 
