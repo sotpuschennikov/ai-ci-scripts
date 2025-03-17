@@ -3,9 +3,9 @@ import argparse
 import os
 import re
 import sys
+import logging
 from openai import OpenAI
 from jinja2 import Environment, FileSystemLoader, select_autoescape
-import logging
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
