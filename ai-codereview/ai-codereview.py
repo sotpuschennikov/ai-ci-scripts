@@ -56,12 +56,13 @@ def main(args):
             temperature=args.temperature,
             max_tokens=args.max_tokens,
         )
-        logger.info("Output: ", re.sub(r'<think>.*?</think>', '', chat_completion.choices[0].message.content, flags=re.DOTALL))
+        output = re.sub(r'<think>.*?</think>', '', chat_completion.choices[0].message.content, flags=re.DOTALL)
+        logger.info(f"Output: {output}")
         f = open("./output.txt", "a")
         f.write(re.sub(r'<think>.*?</think>', '', chat_completion.choices[0].message.content, flags=re.DOTALL))
         f.close()
         message = re.findall(r'<message>(.*?)</message>', chat_completion.choices[0].message.content, flags=re.DOTALL)
-        logger.info(message)
+        logger.info(f"Brief: {message}")
         f = open("./message.txt", "a")
         f.write(message[0])
         f.close()
