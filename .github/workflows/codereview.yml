@@ -67,7 +67,7 @@ jobs:
                 --lang "${LANG}" \
                 --template-file "${PATH_TO_JINJA_TEMPLATE_FILE}"
           done
-          echo "review_result=$(cat ./message.txt | tr '\n' ' ')" >> $GITHUB_OUTPUT
+          echo "review_result=$(cat ./output.txt | tr '\n' ' ')" >> $GITHUB_OUTPUT
       - name: Saved cached virtualenv
         uses: actions/cache/save@v4
         with:
