@@ -3,9 +3,9 @@ import argparse
 import os
 import re
 import sys
+import logging
 from openai import OpenAI
 from jinja2 import Environment, FileSystemLoader, select_autoescape
-import logging
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -62,7 +62,7 @@ def main(args):
         f.write(re.sub(r'<think>.*?</think>', '', chat_completion.choices[0].message.content, flags=re.DOTALL))
         f.close()
         message = re.findall(r'<message>(.*?)</message>', chat_completion.choices[0].message.content, flags=re.DOTALL)
-        logger.info('Brief: %s', message)
+        logger.info('Brief: %s', message[0])
         f = open("./message.txt", "a")
         f.write(message[0])
         f.close()
