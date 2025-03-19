@@ -47,14 +47,14 @@ jobs:
           PATH_TO_AI_CODEREVIEW_SCRIPT: 'ai-ci-scripts/ai-codereview/ai-codereview.py'
           PATH_TO_JINJA_TEMPLATE_FILE: 'ai-ci-scripts/ai-codereview/prompt_template.j2'
           PATH_TO_REQUIREMENTS_FILE: 'ai-ci-scripts/ai-codereview/requirements.txt'
-          CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
         run: |
           #!/bin/bash -e
           #pushd 'ai-ci-scripts'
           #changedFiles=$(git show --pretty='format:' --name-only | grep .py)
           #popd
           ##sudo apt install python3-venv
-          echo $CHANGED_FILES
+          echo $ALL_CHANGED_FILES
           python3 -m venv ${VENV_DIR_LOC}
           set +x
           source ${VENV_DIR_LOC}/bin/activate
@@ -63,7 +63,7 @@ jobs:
           echo "$VIRTUAL_ENV/bin" >> $GITHUB_PATH
           echo "VIRTUAL_ENV=$VIRTUAL_ENV" >> $GITHUB_ENV
           set -x
-          for file in $(echo $CHANGED_FILES) ; do
+          for file in $(echo $ALL_CHANGED_FILES) ; do
               echo "Review file ai-ci-scripts/${file}"
               export PROMPT_VAR=$(cat "ai-ci-scripts/${file}")
               python3 ${PATH_TO_AI_CODEREVIEW_SCRIPT} \
