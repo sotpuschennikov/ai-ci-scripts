@@ -71,7 +71,7 @@ jobs:
       - name: Saved cached virtualenv
         uses: actions/cache/save@v4
         with:
-          key: venv-${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-${{ 'ai-ci-scripts/ai-codereview/requirements.txt') }}
+          key: venv-${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('ai-ci-scripts/ai-codereview/requirements.txt') }}
           path: .venv    
       - uses: actions/github-script@v7
         with:
