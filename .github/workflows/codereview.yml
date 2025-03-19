@@ -18,6 +18,12 @@ jobs:
         with:
           repository: sotpuschennikov/ai-ci-scripts
           path: ai-ci-scripts
+      - name: Get all changed markdown files
+        id: changed-python-files
+        uses: tj-actions/changed-files@v45
+        with:
+          files: |
+            **.py    
       - uses: actions/setup-python@v5
         id: setup_python
         with:
@@ -29,6 +35,7 @@ jobs:
           path: .venv     
       - name: Run ai-codereview script
         id: codereview
+        if: steps.changed-python-files.outputs.any_changed == 'true'
         env:
           AI_API_TOKEN: ${{ secrets.AI_API_TOKEN }}
           AI_API_MODEL: ${{ secrets.AI_API_MODEL }}
@@ -39,12 +46,13 @@ jobs:
           LANG: 'python'
           PATH_TO_AI_CODEREVIEW_SCRIPT: 'ai-ci-scripts/ai-codereview/ai-codereview.py'
           PATH_TO_JINJA_TEMPLATE_FILE: 'ai-ci-scripts/ai-codereview/prompt_template.j2'
-          PATH_TO_REQUIREMENTS_FILE: 'ai-ci-scripts/ai-codereview/requirements.txt' 
+          PATH_TO_REQUIREMENTS_FILE: 'ai-ci-scripts/ai-codereview/requirements.txt'
+          CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
         run: |
           #!/bin/bash -e
-          pushd 'ai-ci-scripts'
-          changedFiles=$(git show --pretty='format:' --name-only | grep .py)
-          popd
+          #pushd 'ai-ci-scripts'
+          #changedFiles=$(git show --pretty='format:' --name-only | grep .py)
+          #popd
           ##sudo apt install python3-venv
           python3 -m venv ${VENV_DIR_LOC}
           set +x
@@ -54,7 +62,7 @@ jobs:
           echo "$VIRTUAL_ENV/bin" >> $GITHUB_PATH
           echo "VIRTUAL_ENV=$VIRTUAL_ENV" >> $GITHUB_ENV
           set -x
-          for file in $(echo $changedFiles) ; do
+          for file in $(echo $CHANGED_FILES) ; do
               echo "Review file ai-ci-scripts/${file}"
               export PROMPT_VAR=$(cat "ai-ci-scripts/${file}")
               python3 ${PATH_TO_AI_CODEREVIEW_SCRIPT} \
@@ -67,7 +75,7 @@ jobs:
                 --lang "${LANG}" \
                 --template-file "${PATH_TO_JINJA_TEMPLATE_FILE}"
           done
-          echo "review_result=$(cat ./output.txt | tr '\n' ' ')" >> $GITHUB_OUTPUT
+          echo "review_result=$(cat ./summary.txt | tr '\n' ' ')" >> $GITHUB_OUTPUT
       - name: Saved cached virtualenv
         uses: actions/cache/save@v4
         with:
