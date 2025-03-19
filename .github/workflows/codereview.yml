@@ -42,10 +42,9 @@ jobs:
           PATH_TO_REQUIREMENTS_FILE: 'ai-ci-scripts/ai-codereview/requirements.txt' 
         run: |
           #!/bin/bash -e
-          ls -la
-          ##pushd 'ai-ci-scripts'
-          ##changedFiles=$(git show --pretty='format:' --name-only | grep .py)
-          ##popd
+          pushd 'ai-ci-scripts'
+          changedFiles=$(git show --pretty='format:' --name-only | grep .py)
+          popd
           ##sudo apt install python3-venv
           python3 -m venv ${VENV_DIR_LOC}
           set +x
