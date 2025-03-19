@@ -23,7 +23,7 @@ jobs:
         uses: tj-actions/changed-files@v45
         with:
           files: |
-            **.py    
+            ai-ci-scripts/**.py    
       - uses: actions/setup-python@v5
         id: setup_python
         with:
@@ -54,6 +54,7 @@ jobs:
           #changedFiles=$(git show --pretty='format:' --name-only | grep .py)
           #popd
           ##sudo apt install python3-venv
+          echo $CHANGED_FILES
           python3 -m venv ${VENV_DIR_LOC}
           set +x
           source ${VENV_DIR_LOC}/bin/activate
