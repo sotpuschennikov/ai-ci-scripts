@@ -23,9 +23,9 @@ jobs:
         uses: tj-actions/changed-files@v45
         with:
           files: |
-            **.py
+            ##**.py
             ai-ci-scripts/**.py
-            ai-ci-scripts/*.py
+            ##ai-ci-scripts/*.py
       - uses: actions/setup-python@v5
         id: setup_python
         with:
@@ -93,5 +93,6 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "${{ steps.codereview.outputs.review_result }}"
+              body: "${{ steps.codereview.outputs.review_result }}
+              See the code review here ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
             })
