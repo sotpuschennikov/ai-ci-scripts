@@ -80,6 +80,8 @@ jobs:
                 --lang "${LANG}" \
                 --template-file "${PATH_TO_JINJA_TEMPLATE_FILE}"
           done
+          echo "See the code review here ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          echo "See the code review here ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> ./summary.txt
           echo "review_result=$(cat ./summary.txt | tr '\n' ' ')" >> $GITHUB_OUTPUT
       - name: Saved cached virtualenv
         uses: actions/cache/save@v4
@@ -93,6 +95,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "${{ steps.codereview.outputs.review_result }}
-              See the code review here ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+              body: "${{ steps.codereview.outputs.review_result }}"
             })
