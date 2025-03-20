@@ -25,7 +25,7 @@ jobs:
           files: |
             ##**.py
             ai-ci-scripts/**.py
-            ##ai-ci-scripts/*.py
+            ai-ci-scripts/*.py
       - uses: actions/setup-python@v5
         id: setup_python
         with:
