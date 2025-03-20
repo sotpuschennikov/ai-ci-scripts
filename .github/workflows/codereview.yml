@@ -23,9 +23,9 @@ jobs:
         uses: tj-actions/changed-files@v45
         with:
           files: |
-            ##**.py
-            ai-ci-scripts/**.py
-            ai-ci-scripts/*.py
+            **.py
+            ##ai-ci-scripts/**.py
+            ##ai-ci-scripts/*.py
       - uses: actions/setup-python@v5
         id: setup_python
         with:
