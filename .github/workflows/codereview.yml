@@ -21,9 +21,11 @@ jobs:
       - name: Get all changed python files
         id: changed-python-files
         uses: tj-actions/changed-files@v45
-        #with:
-        #  files: |
-        #    ai-ci-scripts/**.py
+        with:
+          files: |
+            **.py
+            ai-ci-scripts/**.py
+            ai-ci-scripts/*.py
       - uses: actions/setup-python@v5
         id: setup_python
         with:
