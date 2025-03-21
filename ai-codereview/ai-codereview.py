@@ -73,7 +73,7 @@ def main(args):
         )
         summary = re.sub(r'<think>.*?</think>', '', chat_completion_summary.choices[0].message.content, flags=re.DOTALL)
         print(summary)
-        f = open("./summary.txt", "w")
+        f = open("./summary.txt", "a")
         f.write(summary)
         f.close()
         #print("Usage: ", chat_completion.usage)

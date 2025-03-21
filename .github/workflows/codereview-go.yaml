@@ -20,11 +20,11 @@ jobs:
           path: ai-ci-scripts
       - name: Get all changed golang files
         id: changed-golang-files
-        uses: tj-actions/changed-files@v45
+        uses: tj-actions/changed-files@2f7c5bfce28377bc069a65ba478de0a74aa0ca32 #v46.0.1
         with:
           files: |
             **.go
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38 #v5.4.0
         id: setup_python
         with:
           python-version: '3.12'
@@ -78,7 +78,7 @@ jobs:
         with:
           key: venv-${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('ai-ci-scripts/ai-codereview/requirements.txt') }}
           path: .venv    
-      - uses: actions/github-script@v7
+      - uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea #v7
         with:
           script: |
             github.rest.issues.createComment({
