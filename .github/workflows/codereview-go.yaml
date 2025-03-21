@@ -35,7 +35,7 @@ jobs:
           path: .venv     
       - name: Run ai-codereview script
         id: codereview
-        if: steps.changed-python-files.outputs.any_changed == 'true'
+        if: steps.changed-golang-files.outputs.any_changed == 'true'
         env:
           AI_API_TOKEN: ${{ secrets.AI_API_TOKEN }}
           AI_API_MODEL: ${{ secrets.AI_API_MODEL }}
