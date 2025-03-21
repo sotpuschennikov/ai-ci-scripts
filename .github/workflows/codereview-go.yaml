@@ -43,7 +43,7 @@ jobs:
           MAX_TOKENS: '10000'
           TEMPERATURE: '0.6'
           VENV_DIR_LOC: '.venv'
-          LANG: 'python'
+          LANG: 'go'
           PATH_TO_AI_CODEREVIEW_SCRIPT: 'ai-ci-scripts/ai-codereview/ai-codereview.py'
           PATH_TO_JINJA_TEMPLATE_FILE: 'ai-ci-scripts/ai-codereview/prompt_template.j2'
           PATH_TO_REQUIREMENTS_FILE: 'ai-ci-scripts/ai-codereview/requirements.txt'
