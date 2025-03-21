@@ -59,7 +59,7 @@ jobs:
           set -x
           for file in $(echo $ALL_CHANGED_FILES) ; do
               echo "Review file ${file}"
-              echo "Review file ${file} \n" >> ./summary.txt
+              echo "Review file ${file}\n" >> ./summary.txt
               export PROMPT_VAR=$(cat "${file}")
               python3 ${PATH_TO_AI_CODEREVIEW_SCRIPT} \
                 --base-url "${AI_API_BASE_URL}" \
