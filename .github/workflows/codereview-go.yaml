@@ -59,6 +59,7 @@ jobs:
           set -x
           for file in $(echo $ALL_CHANGED_FILES) ; do
               echo "Review file ${file}"
+              echo -e "Review file ${file}" \n>> ./sumary.txt
               export PROMPT_VAR=$(cat "${file}")
               python3 ${PATH_TO_AI_CODEREVIEW_SCRIPT} \
                 --base-url "${AI_API_BASE_URL}" \
@@ -70,7 +71,7 @@ jobs:
                 --lang "${LANG}" \
                 --template-file "${PATH_TO_JINJA_TEMPLATE_FILE}"
           done
-          echo "See the code review here ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> ./summary.txt
+          echo "See the code review [here]${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/${{ github.jobs[github.job].name }}" >> ./summary.txt
           echo "review_result=$(cat ./summary.txt | tr '\n' ' ')" >> $GITHUB_OUTPUT
       - name: Saved cached virtualenv
         uses: actions/cache/save@v4
