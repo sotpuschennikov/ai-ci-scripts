@@ -48,6 +48,7 @@ jobs:
           PATH_TO_JINJA_TEMPLATE_FILE: 'ai-ci-scripts/ai-codereview/prompt_template.j2'
           PATH_TO_REQUIREMENTS_FILE: 'ai-ci-scripts/ai-codereview/requirements.txt'
           ALL_CHANGED_FILES: ${{ steps.changed-golang-files.outputs.all_changed_files }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           #!/bin/bash -e
           python3 -m venv ${VENV_DIR_LOC}
