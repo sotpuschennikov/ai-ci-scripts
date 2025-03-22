@@ -72,10 +72,10 @@ jobs:
                 --lang "${LANG}" \
                 --template-file "${PATH_TO_JINJA_TEMPLATE_FILE}"
           done
-          job_url=$(gh run --repo ${{ github.repository }} view ${{ github.run_id }} --json jobs --jq '.jobs[] | select(.name == "${{ github.job }}") | .url, (.steps[] | select(.name == "Run ai-codereview script") | "#step:\(.number):1")' | tr -d "\n")
+          JOB_URL=$(gh run --repo ${{ github.repository }} view ${{ github.run_id }} --json jobs --jq '.jobs[] | select(.name == "${{ github.job }}") | .url, (.steps[] | select(.name == "Run ai-codereview script") | "#step:\(.number):1")' | tr -d "\n")
           ##echo "See the code review [here]${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/${{ github.jobs[github.job].name }}" >> ./summary.txt
-          echo $job_url
-          echo "See the code review [here]($job_url)"
+          echo $JOB_URL
+          echo "See the code review [here]($JOB_URL)"  >> ./summary.txt
           echo "review_result=$(cat ./summary.txt | tr '\n' ' ')" >> $GITHUB_OUTPUT
       - name: Saved cached virtualenv
         uses: actions/cache/save@v4
