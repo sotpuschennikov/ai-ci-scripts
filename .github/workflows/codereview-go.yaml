@@ -12,7 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          repository: Mirantis/ai-ci-scripts
+          repository: sotpuschennikov/ai-ci-scripts
           path: ai-ci-scripts
       - name: Get all changed golang files
         id: changed-golang-files
