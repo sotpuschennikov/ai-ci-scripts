@@ -76,7 +76,7 @@ jobs:
           echo "See the code review [here]($JOB_URL)"  >> ./summary.txt
           echo "review_result=$(cat ./summary.txt | tr '\n' ' ')" >> $GITHUB_OUTPUT
       - name: Saved cached virtualenv
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@6849a6489940f00c2f30c0fb92c6274307ccb58a #v4
         with:
           key: venv-${{ runner.os }}-${{ steps.setup_python.outputs.python-version }}-${{ hashFiles('ai-ci-scripts/ai-codereview/requirements.txt') }}
           path: .venv    
