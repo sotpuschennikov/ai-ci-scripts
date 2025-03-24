@@ -16,7 +16,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          repository: sotpuschennikov/ai-ci-scripts
+          repository: Mirantis/ai-ci-scripts
           path: ai-ci-scripts
       - name: Get all changed golang files
         id: changed-golang-files
@@ -60,7 +60,7 @@ jobs:
           set -x
           for file in $(echo $ALL_CHANGED_FILES) ; do
               echo "Review file ${file}"
-              echo "Review file ${file}\n" >> ./summary.txt
+              echo "\nReview file ${file}\n" >> ./summary.txt
               export PROMPT_VAR=$(cat "${file}")
               python3 ${PATH_TO_AI_CODEREVIEW_SCRIPT} \
                 --base-url "${AI_API_BASE_URL}" \
