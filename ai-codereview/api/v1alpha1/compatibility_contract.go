@@ -19,6 +19,7 @@ import (
 	"strings"
 )
 
+
 // isCAPIContractVersion determines whether a given string
 // represents a version in the CAPI contract version format (e.g. v1_v1beta1_v1alpha1, etc.).
 func isCAPIContractVersion(version string) bool {
