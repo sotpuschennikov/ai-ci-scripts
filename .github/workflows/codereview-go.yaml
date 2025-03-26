@@ -26,6 +26,11 @@ jobs:
         #  path: ai-ci-scripts
           ref: ${{fromJSON(steps.pr.outputs.result).merge_commit_sha}}
           fetch-depth: 0
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: Mirantis/ai-ci-scripts
+          path: ai-ci-scripts-main
       - name: Get all changed golang files
         id: changed-golang-files
         uses: tj-actions/changed-files@2f7c5bfce28377bc069a65ba478de0a74aa0ca32 #v46.0.1
@@ -52,9 +57,9 @@ jobs:
           TEMPERATURE: '0.6'
           VENV_DIR_LOC: '.venv'
           LANG: 'go'
-          PATH_TO_AI_CODEREVIEW_SCRIPT: 'ai-ci-scripts/ai-codereview/ai-codereview.py'
-          PATH_TO_JINJA_TEMPLATE_FILE: 'ai-ci-scripts/ai-codereview/prompt_template.j2'
-          PATH_TO_REQUIREMENTS_FILE: 'ai-ci-scripts/ai-codereview/requirements.txt'
+          PATH_TO_AI_CODEREVIEW_SCRIPT: 'ai-ci-scripts-main/ai-codereview/ai-codereview.py'
+          PATH_TO_JINJA_TEMPLATE_FILE: 'ai-ci-scripts-main/ai-codereview/prompt_template.j2'
+          PATH_TO_REQUIREMENTS_FILE: 'ai-ci-scripts-main/ai-codereview/requirements.txt'
           ALL_CHANGED_FILES: ${{ steps.changed-golang-files.outputs.all_changed_files }}
           GH_TOKEN: ${{ github.token }}
         run: |
