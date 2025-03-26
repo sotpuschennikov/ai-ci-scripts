@@ -9,11 +9,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Get PR ref
+        uses: actions/github-script@v7
+        id: pr
+        with:
+          script: |
+            const { data: pullRequest } = await github.rest.pulls.get({
+              ...context.repo,
+              pull_number: context.payload.pull_request.number,
+            });
+            return pullRequest
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          repository: Mirantis/ai-ci-scripts
-          path: ai-ci-scripts
+        #  repository: Mirantis/ai-ci-scripts
+        #  path: ai-ci-scripts
+          ref: ${{fromJSON(steps.pr.outputs.result).merge_commit_sha}}
+          fetch-depth: 0
       - name: Get all changed golang files
         id: changed-golang-files
         uses: tj-actions/changed-files@2f7c5bfce28377bc069a65ba478de0a74aa0ca32 #v46.0.1
