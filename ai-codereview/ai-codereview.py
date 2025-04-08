@@ -61,7 +61,7 @@ def main(args):
         f = open("./output.txt", "a")
         f.write(re.sub(r'<think>.*?</think>', '', chat_completion.choices[0].message.content, flags=re.DOTALL))
         f.close()
-        prompt_summary = 'Summarize me this code review in 5 lines: ' + output
+        prompt_summary = 'Summarize me this code review with markdown formatting in 5 lines: ' + output
         chat_completion_summary = client.chat.completions.create(
             model=MODEL,
             messages=[
@@ -72,7 +72,7 @@ def main(args):
             temperature=0.6,
         )
         summary = re.sub(r'<think>.*?</think>', '', chat_completion_summary.choices[0].message.content, flags=re.DOTALL)
-        print(summary)
+        #print(summary)
         f = open("./summary.txt", "a")
         f.write(summary)
         f.close()
