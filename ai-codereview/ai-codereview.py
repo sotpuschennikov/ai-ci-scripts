@@ -61,7 +61,7 @@ def main(args):
         f = open("./output.txt", "a")
         f.write(re.sub(r'<think>.*?</think>', '', chat_completion.choices[0].message.content, flags=re.DOTALL))
         f.close()
-        prompt_summary = 'Using markdown format briefly describe this review: ' + output
+        prompt_summary = 'Using markdown format briefly describe this review in 5 lines: ' + output
         chat_completion_summary = client.chat.completions.create(
             model=MODEL,
             messages=[
